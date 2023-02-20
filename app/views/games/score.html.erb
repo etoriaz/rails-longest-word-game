@@ -1,0 +1,12 @@
+<% if @word.chars.all? { |letter| @word.count(letter) <= @letters.count(letter) } %>
+  <% uri = URI.open("https://wagon-dictionary.herokuapp.com/#{@word}").read %>
+  <% result = JSON.parse(uri) %>
+  <% if result['found'] == true %>
+    <p>Congratulations! <%= @word %> is a valid English word.</p>
+  <% else %>
+    <p>Sorry this <%= @word %> does not seem to be a valid English word.</p>
+  <% end %>
+<% else %>
+  <p>Sorry but <%= @word %> can't be build out of <%= @letters %></p>
+<% end %>
+  <h1> Your score is: <%= @score %> </h1>
